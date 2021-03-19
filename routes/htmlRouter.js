@@ -6,8 +6,8 @@ router.get('/exercise', (req, res) => {
     res.sendFile('exercise.html', { root });
 });
 
-router.get('/status', (req, res) => {
-    res.sendFile('status.html', { root });
+router.get('/stats', (req, res) => {
+    res.sendFile('stats.html', { root });
 });
 
 module.exports = router;
