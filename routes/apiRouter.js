@@ -2,7 +2,14 @@ const db = require('../models');
 const router = require('express').Router();
 
 router.get('/workouts', async (req, res) => {
-  const workouts = await db.Workout.find({});
+  const workouts = await db.Workout.aggregate([
+    { $sort: { day: 1, _id: 1 } },
+    { $addFields: {
+      totalDuration: {
+        $sum: '$exercises.duration'
+      }
+    }}
+  ]);
   res.json(workouts);
 });
 
@@ -33,7 +40,6 @@ router.get('/workouts/range', async (req, res) => {
       }
     }}
   ]);
-  console.log(`Number of results: ${workouts.length}`);
   res.json(workouts);
 });
 
